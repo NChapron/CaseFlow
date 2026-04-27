@@ -1,0 +1,15 @@
+services:
+  caseflow-prod:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.prod
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256M

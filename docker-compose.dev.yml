@@ -1,0 +1,13 @@
+services:
+  caseflow-dev:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dev
+    ports:
+      - "4200:4200"
+    volumes:
+      - .:/app
+      - /app/node_modules        # prevent host node_modules from overwriting
+    environment:
+      - NODE_ENV=development
+    restart: unless-stopped

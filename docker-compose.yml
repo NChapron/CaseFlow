@@ -1,0 +1,6 @@
+services:
+  caseflow:
+    build: .
+    ports:
+      - "4200:80"
+    restart: unless-stopped

@@ -1,0 +1,10 @@
+services:
+  caseflow-uat:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.uat
+    ports:
+      - "8080:80"
+    environment:
+      - NODE_ENV=uat
+    restart: unless-stopped

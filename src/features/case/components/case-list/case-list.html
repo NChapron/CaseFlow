@@ -1,0 +1,49 @@
+<cf-case-filter-bar (filterChange)="onFilterChange($event)" (resetFilters)="onReset()" />
+
+<div class="case-list__toolbar">
+  <span class="case-list__count" aria-live="polite">
+    {{ filteredCases().length }} {{ filteredCases().length === 1 ? 'case' : 'cases' }}
+  </span>
+  <div class="case-list__sort">
+    <label for="sort-field" class="sr-only">Sort by</label>
+    <select
+      id="sort-field"
+      class="case-list__select"
+      [value]="sortField()"
+      (change)="onSortChange($any($event.target).value, sortDirection())"
+    >
+      <option value="createdAt">Date created</option>
+      <option value="updatedAt">Last updated</option>
+      <option value="priority">Priority</option>
+    </select>
+
+    <button
+      class="case-list__sort-dir"
+      type="button"
+      [attr.aria-label]="'Sort ' + (sortDirection() === 'desc' ? 'descending' : 'ascending')"
+      (click)="toggleSortDirection()"
+    >
+      {{ sortDirection() === 'desc' ? '↓' : '↑' }}
+    </button>
+  </div>
+</div>
+
+<div class="case-list__body" role="table" aria-label="Cases">
+  @if (filteredCases().length > 0) {
+    @for (c of filteredCases(); track c.id) {
+      <cf-case-row
+        [case]="c"
+        [assigneeInitials]="getInitials(c.assigneeId)"
+        [assigneeName]="getName(c.assigneeId)"
+        (selected)="onCaseSelected($event)"
+      />
+    }
+  } @else {
+    <cf-empty-state
+      title="No cases found"
+      message="Try adjusting your search or filters."
+      actionLabel="Reset filters"
+      (actionClick)="onReset()"
+    />
+  }
+</div>

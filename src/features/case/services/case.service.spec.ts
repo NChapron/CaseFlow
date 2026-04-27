@@ -73,12 +73,13 @@ describe('CaseService', () => {
       expect(created!.createdAt.getTime()).toBeGreaterThanOrEqual(before);
     });
 
-    it('should initialise with empty timeline and comments', async () => {
+    it('should initialise with empty comments and a single created event in timeline', async () => {
       service.createCase({ ...payload, title: 'Empty collections' });
       const cases = await firstValueFrom(service.getCases$());
       const created = cases.find((c) => c.title === 'Empty collections');
-      expect(created?.timeline).toEqual([]);
       expect(created?.comments).toEqual([]);
+      expect(created?.timeline.length).toBe(1);
+      expect(created?.timeline[0].type).toBe('created');
     });
 
     it('should append a created timeline event', async () => {

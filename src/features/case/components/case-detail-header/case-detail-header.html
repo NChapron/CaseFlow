@@ -1,0 +1,34 @@
+@if (case()) {
+  <div class="detail-header">
+    <div class="detail-header__top">
+      <span class="detail-header__id">{{ case()!.id }}</span>
+      <span class="detail-header__updated"> Updated {{ case()!.updatedAt | timeAgo }} </span>
+    </div>
+
+    <h1 class="detail-header__title">{{ case()!.title }}</h1>
+
+    <div class="detail-header__meta">
+      <cf-status-badge [status]="case()!.status" />
+      <cf-priority-badge [priority]="case()!.priority" />
+
+      <div class="detail-header__assignee">
+        @if (assignee()) {
+          <cf-avatar [initials]="assignee()!.initials" [name]="assignee()!.name" size="sm" />
+          <span class="detail-header__assignee-name">{{ assignee()!.name }}</span>
+        } @else {
+          <span class="detail-header__unassigned">Unassigned</span>
+        }
+      </div>
+    </div>
+
+    <p class="detail-header__description">{{ case()!.description }}</p>
+
+    @if (case()!.tags.length > 0) {
+      <div class="detail-header__tags">
+        @for (tag of case()!.tags; track tag) {
+          <span class="detail-header__tag">{{ tag }}</span>
+        }
+      </div>
+    }
+  </div>
+}

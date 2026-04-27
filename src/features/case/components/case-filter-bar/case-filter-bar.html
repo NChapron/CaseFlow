@@ -1,0 +1,53 @@
+<div class="filter-bar" role="search" aria-label="Filter cases" [formGroup]="form">
+  <div class="filter-bar__search">
+    <label for="case-search" class="sr-only">Search cases</label>
+    <input
+      id="case-search"
+      type="search"
+      formControlName="search"
+      placeholder="Search cases…"
+      class="filter-bar__input"
+      aria-label="Search cases"
+    />
+  </div>
+
+  <div class="filter-bar__selects">
+    <label for="status-filter" class="sr-only">Filter by status</label>
+    <select
+      id="status-filter"
+      formControlName="status"
+      data-testid="status-filter"
+      class="filter-bar__select"
+      aria-label="Filter by status"
+    >
+      <option value="">All statuses</option>
+      @for (s of statuses; track s.value) {
+        <option [value]="s.value">{{ s.label }}</option>
+      }
+    </select>
+
+    <label for="priority-filter" class="sr-only">Filter by priority</label>
+    <select
+      id="priority-filter"
+      formControlName="priority"
+      data-testid="priority-filter"
+      class="filter-bar__select"
+      aria-label="Filter by priority"
+    >
+      <option value="">All priorities</option>
+      @for (p of priorities; track p.value) {
+        <option [value]="p.value">{{ p.label }}</option>
+      }
+    </select>
+  </div>
+
+  <button
+    type="button"
+    data-testid="reset-filters"
+    class="filter-bar__reset"
+    (click)="onReset()"
+    aria-label="Reset all filters"
+  >
+    Reset
+  </button>
+</div>

@@ -1,0 +1,27 @@
+@if (case()) {
+  <div class="stepper" aria-label="Workflow status">
+    <div class="stepper__state">
+      <span class="stepper__label">Current status</span>
+      <cf-status-badge [status]="case()!.status" />
+      <span class="stepper__current">{{ label(case()!.status) }}</span>
+    </div>
+
+    @if (!isTerminal()) {
+      <div class="stepper__actions" role="group" aria-label="Transition status to">
+        @for (next of validTransitions(); track next) {
+          <button
+            type="button"
+            class="stepper__btn"
+            [class]="'stepper__btn--' + next"
+            [attr.aria-label]="'Move to ' + label(next)"
+            (click)="transition(next)"
+          >
+            Move to {{ label(next) }}
+          </button>
+        }
+      </div>
+    } @else {
+      <p class="stepper__terminal">This case is closed and cannot be transitioned further.</p>
+    }
+  </div>
+}

@@ -1,0 +1,93 @@
+<form
+  [formGroup]="form"
+  (ngSubmit)="onSubmit()"
+  novalidate
+  class="case-form"
+  aria-label="{{ isEditMode() ? 'Edit case' : 'Create case' }}"
+>
+  <h2 class="case-form__heading">
+    {{ isEditMode() ? 'Edit case' : 'New case' }}
+  </h2>
+
+  <!-- Title -->
+  <div class="form__field">
+    <label for="case-title" class="form__label">
+      Title <span aria-hidden="true">*</span>
+    </label>
+    <input
+      id="case-title"
+      type="text"
+      formControlName="title"
+      class="form__input"
+      placeholder="Brief summary of the issue"
+      aria-required="true"
+      [attr.aria-describedby]="titleInvalid() ? 'title-error' : null"
+    />
+    @if (titleInvalid()) {
+      <p id="title-error" class="form__error" role="alert">Title is required.</p>
+    }
+  </div>
+
+  <!-- Description -->
+  <div class="form__field">
+    <label for="case-description" class="form__label">Description</label>
+    <textarea
+      id="case-description"
+      formControlName="description"
+      class="form__textarea"
+      placeholder="Detailed description of the issue…"
+      rows="5"
+    >
+        </textarea>
+  </div>
+
+  <!-- Priority -->
+  <div class="form__field">
+    <label for="case-priority" class="form__label">
+      Priority <span aria-hidden="true">*</span>
+    </label>
+    <select
+      id="case-priority"
+      formControlName="priority"
+      class="form__select"
+      aria-required="true"
+    >
+      <option value="">Select priority</option>
+      @for (p of priorities; track p.value) {
+        <option [value]="p.value">{{ p.label }}</option>
+      }
+    </select>
+  </div>
+
+  <!-- Assignee -->
+  <div class="form__field">
+    <label for="case-assignee" class="form__label">Assignee</label>
+    <select id="case-assignee" formControlName="assigneeId" class="form__select">
+      <option value="">Unassigned</option>
+      @for (u of users(); track u.id) {
+        <option [value]="u.id">{{ u.name }}</option>
+      }
+    </select>
+  </div>
+
+  <!-- Tags -->
+  <div class="form__field">
+    <label for="case-tags" class="form__label">Tags</label>
+    <input
+      id="case-tags"
+      type="text"
+      formControlName="tags"
+      class="form__input"
+      placeholder="auth, frontend, safari  (comma separated)"
+    />
+    <p class="form__hint">Separate tags with commas.</p>
+  </div>
+
+  <!-- Actions -->
+  <div class="case-form__actions">
+    <button type="button" class="case-form__cancel" (click)="onCancel()">Cancel</button>
+    <button type="submit" class="case-form__submit" [disabled]="form.invalid">
+      {{ isEditMode() ? 'Save changes' : 'Create case' }}
+    </button>
+  </div>
+</form>

@@ -1,0 +1,28 @@
+<div
+  class="case-row"
+  role="row"
+  tabindex="0"
+  (click)="selected.emit(case().id)"
+  (keydown.enter)="selected.emit(case().id)"
+  (keydown.space)="selected.emit(case().id)"
+  [attr.aria-label]="'Case ' + case().id + ': ' + case().title"
+>
+  <div class="case-row__main">
+    <span class="case-row__id">{{ case().id }}</span>
+    <span class="case-row__title">{{ case().title }}</span>
+    <div class="case-row__tags">
+      @for (tag of case().tags; track tag) {
+        <span class="case-row__tag">{{ tag }}</span>
+      }
+    </div>
+  </div>
+
+  <div class="case-row__meta">
+    <cf-status-badge [status]="case().status" />
+    <cf-priority-badge [priority]="case().priority" />
+    @if (assigneeInitials()) {
+      <cf-avatar [initials]="assigneeInitials()!" [name]="assigneeName()" />
+    }
+    <span class="case-row__date">{{ case().updatedAt | timeAgo }}</span>
+  </div>
+</div>

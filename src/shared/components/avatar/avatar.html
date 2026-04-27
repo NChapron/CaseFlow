@@ -1,0 +1,9 @@
+<span
+  class="avatar"
+  [class]="sizeClass()"
+  [title]="name() ?? ''"
+  [attr.aria-label]="name() ?? initials()"
+  role="img"
+>
+  {{ initials() }}
+</span>

@@ -1,0 +1,81 @@
+:host {
+  display: block;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  background: #f9f9f8;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+
+.stepper__state {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.stepper__label {
+  font-size: 12px;
+  color: #6b6a64;
+  white-space: nowrap;
+}
+
+.stepper__current {
+  font-size: 13px;
+  font-weight: 500;
+  color: #1a1a18;
+}
+
+.stepper__actions {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.stepper__btn {
+  height: 32px;
+  padding: 0 12px;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: #fff;
+  color: #1a1a18;
+  cursor: pointer;
+  transition: background 0.1s;
+  white-space: nowrap;
+
+  &:hover {
+    background: #f1efe8;
+  }
+  &:focus-visible {
+    outline: 2px solid #378add;
+    outline-offset: 2px;
+  }
+}
+
+.stepper__btn--blocked {
+  border-color: #f09595;
+  color: #791f1f;
+}
+.stepper__btn--resolved {
+  border-color: #97c459;
+  color: #27500a;
+}
+.stepper__btn--closed {
+  border-color: #b4b2a9;
+  color: #5f5e5a;
+}
+
+.stepper__terminal {
+  font-size: 13px;
+  color: #9b9a94;
+  font-style: italic;
+  margin: 0;
+}

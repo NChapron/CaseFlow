@@ -1,5 +1,6 @@
 import { CanDeactivateFn } from '@angular/router';
-import { CaseFormComponent } from '../../features/case/components/case-form/case-form.component';
+import { CaseFormComponent } from '@features/case/components';
+
 
 export const unsavedChangesGuard: CanDeactivateFn<CaseFormComponent> = (component) => {
   if (!component.isDirty()) return true;

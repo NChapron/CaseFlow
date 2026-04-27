@@ -1,1 +1,11 @@
-<p>shell works!</p>
+<div class="shell">
+  <cf-navbar />
+  <div class="shell__body">
+    <cf-sidebar />
+    <main class="shell__main" id="main-content" tabindex="-1">
+      <div class="shell__content">
+        <router-outlet />
+      </div>
+    </main>
+  </div>
+</div>

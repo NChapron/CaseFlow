@@ -1,22 +1,34 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { NavbarComponent } from './navbar';
 
-import { Navbar } from './navbar';
-
-describe('Navbar', () => {
-  let component: Navbar;
-  let fixture: ComponentFixture<Navbar>;
-
+describe('NavbarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Navbar],
+      imports: [NavbarComponent],
+      providers: [provideRouter([])],
     }).compileComponents();
-
-    fixture = TestBed.createComponent(Navbar);
-    component = fixture.componentInstance;
-    await fixture.whenStable();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    const fixture = TestBed.createComponent(NavbarComponent);
+    fixture.detectChanges();
+    expect(fixture.componentInstance).toBeTruthy();
+  });
+
+  it('should render the brand name', () => {
+    const fixture = TestBed.createComponent(NavbarComponent);
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.navbar__name').textContent.trim()).toBe(
+      'CaseFlow',
+    );
+  });
+
+  it('should have a skip to main content link', () => {
+    const fixture = TestBed.createComponent(NavbarComponent);
+    fixture.detectChanges();
+    const skip = fixture.nativeElement.querySelector('a.sr-only');
+    expect(skip.getAttribute('href')).toBe('#main-content');
   });
 });

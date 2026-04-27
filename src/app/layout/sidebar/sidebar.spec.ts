@@ -1,22 +1,36 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { SidebarComponent } from './sidebar';
 
-import { Sidebar } from './sidebar';
-
-describe('Sidebar', () => {
-  let component: Sidebar;
-  let fixture: ComponentFixture<Sidebar>;
-
+describe('SidebarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Sidebar],
+      imports: [SidebarComponent],
+      providers: [provideRouter([])],
     }).compileComponents();
-
-    fixture = TestBed.createComponent(Sidebar);
-    component = fixture.componentInstance;
-    await fixture.whenStable();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    const fixture = TestBed.createComponent(SidebarComponent);
+    fixture.detectChanges();
+    expect(fixture.componentInstance).toBeTruthy();
+  });
+
+  it('should render a link for each nav item', () => {
+    const fixture = TestBed.createComponent(SidebarComponent);
+    fixture.detectChanges();
+    const links = fixture.nativeElement.querySelectorAll('.sidebar__link');
+    expect(links.length).toBe(fixture.componentInstance.navItems.length);
+  });
+
+  it('should render Dashboard and Cases nav items', () => {
+    const fixture = TestBed.createComponent(SidebarComponent);
+    fixture.detectChanges();
+    const labels = Array.from(fixture.nativeElement.querySelectorAll('.sidebar__label')).map(
+      (el: any) => el.textContent.trim(),
+    );
+    expect(labels).toContain('Dashboard');
+    expect(labels).toContain('Cases');
   });
 });

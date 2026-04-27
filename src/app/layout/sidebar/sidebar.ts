@@ -1,4 +1,3 @@
-// layout/sidebar/sidebar.component.ts
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
@@ -13,91 +12,10 @@ interface NavItem {
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, RouterLinkActive],
-  template: `
-    <nav class="sidebar" aria-label="Main navigation">
-      <ul class="sidebar__list" role="list">
-        @for (item of navItems; track item.path) {
-          <li>
-            <a
-              class="sidebar__link"
-              [routerLink]="item.path"
-              routerLinkActive="sidebar__link--active"
-              [attr.aria-label]="item.label">
-              <span class="sidebar__icon" aria-hidden="true">{{ item.icon }}</span>
-              <span class="sidebar__label">{{ item.label }}</span>
-            </a>
-          </li>
-        }
-      </ul>
-    </nav>
-  `,
-  styles: [
-    `
-      :host {
-        display: block;
-      }
-
-      .sidebar {
-        width: 200px;
-        flex-shrink: 0;
-        background: #fff;
-        border-right: 1px solid rgba(0, 0, 0, 0.08);
-        padding: 16px 8px;
-        overflow-y: auto;
-      }
-
-      .sidebar__list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 2px;
-      }
-
-      .sidebar__link {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 8px 10px;
-        border-radius: 6px;
-        text-decoration: none;
-        font-size: 13px;
-        font-weight: 500;
-        color: #444441;
-        transition: background 0.1s;
-
-        &:hover {
-          background: #f1efe8;
-        }
-
-        &:focus-visible {
-          outline: 2px solid #378add;
-          outline-offset: 2px;
-        }
-      }
-
-      .sidebar__link--active {
-        background: #e6f1fb;
-        color: #0c447c;
-      }
-
-      .sidebar__icon {
-        font-size: 14px;
-      }
-      .sidebar__label {
-        flex: 1;
-      }
-
-      @media (max-width: 768px) {
-        .sidebar {
-          display: none;
-        }
-      }
-    `,
-  ],
+  templateUrl: './sidebar.html',
+  styleUrl: './sidebar.css',
 })
-export class Sidebar {
+export class SidebarComponent {
   readonly navItems: NavItem[] = [
     { label: 'Dashboard', path: '/dashboard', icon: '⊞' },
     { label: 'Cases', path: '/cases', icon: '◫' },
